@@ -1,0 +1,19 @@
+{
+  "name": "es6-work",
+  "version": "1.0.0",
+  "description": "es6 experiments",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcknz/es6-work.git"
+  },
+  "author": "Jeff McKenzie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mcknz/es6-work/issues"
+  },
+  "homepage": "https://github.com/mcknz/es6-work#readme"
+}
