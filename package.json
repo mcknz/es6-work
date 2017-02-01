@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/mcknz/es6-work/issues"
   },
-  "homepage": "https://github.com/mcknz/es6-work#readme"
+  "homepage": "https://github.com/mcknz/es6-work#readme",
+  "dependencies": {
+    "babel-preset-es2015": "^6.22.0"
+  }
 }
