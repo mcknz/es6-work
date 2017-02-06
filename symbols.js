@@ -112,10 +112,94 @@ console.log(myVeryOwnObject); // logs out `{}`
 myVeryOwnObject[inspect] = function () { return 'DUUUDE'; };
 console.log(myVeryOwnObject); // logs out `DUUUDE`
 */
-
+/*
 class MyClass {
     static [Symbol.hasInstance](lho) {
         return Array.isArray(lho);
     }
 }
 assert([] instanceof MyClass);
+*/
+var myArray = [1,2,3];
+
+/*
+// with `for of`
+for(var value of myArray) {
+    console.log(value);
+}
+
+// without `for of`
+var _myArray = myArray[Symbol.iterator]();
+var _iteration;
+
+while(_iteration = _myArray.next()) {
+    if (_iteration.done) {
+        break;
+    }
+    var value = _iteration.value;
+    console.log(value);
+}
+*/
+/*
+class Collection {
+  *[Symbol.iterator]() {
+    var i = 0;
+    while(this[i] !== undefined) {
+      yield this[i];
+      ++i;
+    }
+  }
+}
+
+var myCollection = new Collection();
+myCollection[0] = 1;
+myCollection[1] = 2;
+for(var value of myCollection) {
+    console.log(value); // 1, then 2
+}
+*/
+/*
+class ArrayIsh extends Array {
+    get [Symbol.isConcatSpreadable]() {
+        return true;
+    }
+}
+class Collection extends Array {
+    get [Symbol.isConcatSpreadable]() {
+        return false;
+    }
+}
+arrayIshInstance = new ArrayIsh();
+arrayIshInstance[0] = 3;
+arrayIshInstance[1] = 4;
+collectionInstance = new Collection();
+collectionInstance[0] = 5;
+collectionInstance[1] = 6;
+spreadableTest = [1,2].concat(arrayIshInstance).concat(collectionInstance);
+assert.deepEqual(spreadableTest, [1, 2, 3, 4, collectionInstance]);
+*/
+
+Object.keys(Array.prototype[Symbol.unscopables]); // -> ['copyWithin', 'entries', 'fill', 'find', 'findIndex', 'keys']
+
+// Without unscopables:
+/*
+class MyClass {
+    foo() { return 1; }
+}
+var foo = function () { return 2; };
+with (MyClass.prototype) {
+    foo(); // 1!!
+}
+*/
+
+// Using unscopables:
+class MyClass {
+    foo() { return 1; }
+    get [Symbol.unscopables]() {
+        return { foo: true };
+    }
+}
+var foo = function () { return 2; };
+with (MyClass.prototype) {
+    l(foo()); // 2!!
+}
